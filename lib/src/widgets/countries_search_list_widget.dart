@@ -44,7 +44,11 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
   /// Returns [InputDecoration] of the search box
   InputDecoration getSearchBoxDecoration() {
     return widget.searchBoxDecoration ??
-        InputDecoration(labelText: 'Search by country name or dial code');
+        InputDecoration(
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xff26282B))),
+            hintText: 'Search by country name or dial code',
+            hintStyle: TextStyle(color: Color(0xff26282B)));
   }
 
   /// Filters the list of Country by text from the search box.
@@ -91,8 +95,9 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextFormField(
             key: Key(TestHelper.CountrySearchInputKeyValue),
-            decoration:
-                getSearchBoxDecoration().copyWith(hintText: "Search here"),
+            decoration: getSearchBoxDecoration().copyWith(
+              hintText: "Search here",
+            ),
             controller: _searchController,
             autofocus: widget.autoFocus,
             onChanged: (value) =>

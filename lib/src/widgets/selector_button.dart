@@ -84,7 +84,7 @@ class SelectorButton extends StatelessWidget {
                   }
                 : null,
             child: Padding(
-              padding: const EdgeInsets.only(right: 0.0,left: 4),
+              padding: const EdgeInsets.only(right: 0.0, left: 10),
               child: Item(
                 country: country,
                 showFlag: selectorConfig.showFlags,
@@ -153,29 +153,32 @@ class SelectorButton extends StatelessWidget {
           GestureDetector(
             onTap: () => Navigator.pop(context),
           ),
-          DraggableScrollableSheet(
-            builder: (BuildContext context, ScrollController controller) {
-              return Container(
-                decoration: ShapeDecoration(
-                  color: Theme.of(context).canvasColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
+          Theme(
+            data: Theme.of(context).copyWith(primaryColor: Color(0xff26282B)),
+            child: DraggableScrollableSheet(
+              builder: (BuildContext context, ScrollController controller) {
+                return Container(
+                  decoration: ShapeDecoration(
+                    color: Color(0xffFFC71C),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
                     ),
                   ),
-                ),
-                child: CountrySearchListWidget(
-                  countries,
-                  locale,
-                  searchBoxDecoration: searchBoxDecoration,
-                  scrollController: controller,
-                  showFlags: selectorConfig.showFlags,
-                  useEmoji: selectorConfig.useEmoji,
-                  autoFocus: autoFocusSearchField,
-                ),
-              );
-            },
+                  child: CountrySearchListWidget(
+                    countries,
+                    locale,
+                    searchBoxDecoration: searchBoxDecoration,
+                    scrollController: controller,
+                    showFlags: selectorConfig.showFlags,
+                    useEmoji: selectorConfig.useEmoji,
+                    autoFocus: autoFocusSearchField,
+                  ),
+                );
+              },
+            ),
           ),
         ]);
       },

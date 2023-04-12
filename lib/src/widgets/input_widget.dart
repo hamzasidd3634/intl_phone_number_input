@@ -1,8 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/src/models/country_list.dart';
 import 'package:intl_phone_number_input/src/models/country_model.dart';
 import 'package:intl_phone_number_input/src/providers/country_provider.dart';
@@ -53,7 +54,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
 
   final PhoneNumber? initialValue;
   final String? hintText;
-  final String? errorMessage;
+  final TextStyle? labelStyle;
+  String? errorMessage;
 
   final double selectorButtonOnErrorPadding;
 
@@ -70,7 +72,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final bool countrySelectorScrollControlled;
 
   final String? locale;
-
+  final Color? backgroundColor;
   final TextStyle? textStyle;
   final TextStyle? selectorTextStyle;
   final InputBorder? inputBorder;
@@ -94,6 +96,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.onInputValidated,
       this.onSubmit,
       this.onFieldSubmitted,
+      this.backgroundColor,
       this.isFromSignUp = false,
       this.validator,
       this.onSaved,
@@ -101,6 +104,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.keyboardAction,
       this.keyboardType = TextInputType.phone,
       this.initialValue,
+      this.labelStyle,
       this.hintText = 'Phone number',
       this.errorMessage = 'Invalid phone number',
       this.selectorButtonOnErrorPadding = 24,
@@ -289,13 +293,12 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
     InputDecoration value = decoration ??
         InputDecoration(
             border: widget.inputBorder ?? UnderlineInputBorder(),
-            hintText: widget.hintText,
+            label: Text(
+              widget.hintText!,
+              style: widget.labelStyle,
+            ),
             contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-            hintStyle: GoogleFonts.redHatText(
-              fontSize: 14,
-              color: Colors.grey,
-              fontWeight: FontWeight.w200,
-            ));
+            hintStyle: widget.labelStyle);
 
     if (widget.selectorConfig.setSelectorButtonAsPrefixIcon) {
       return value.copyWith(
@@ -329,8 +332,10 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
         this.isNotValid && (value!.isNotEmpty || widget.ignoreBlank == false);
     if (value == "") {
       this.checkValidation = false;
+      widget.errorMessage = "Number is required";
     } else {
       this.checkValidation = true;
+      widget.errorMessage = "Invalid phone number";
     }
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       if (isValid && widget.errorMessage != null) {
@@ -415,26 +420,23 @@ class _InputWidgetView
             textInputAction: widget.keyboardAction,
             style: widget.textStyle,
             decoration: InputDecoration(
-                fillColor: widget.inputDecoration?.fillColor ?? Colors.white,
-                filled: true,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                hintText: widget.hintText,
+                label: Text(
+                  widget.hintText!,
+                  style: widget.labelStyle!,
+                ),
                 border: widget.inputDecoration?.border ??
-                    OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Color(0xff0054E8))),
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xff707070))),
                 enabledBorder: widget.inputDecoration?.enabledBorder ??
-                    OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Color(0xff0054E8))),
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xff707070))),
                 focusedBorder: widget.inputDecoration?.focusedBorder ??
-                    OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Color(0xff0054E8))),
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xff707070))),
                 errorBorder: widget.inputDecoration?.errorBorder ??
-                    OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
+                    UnderlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffd51820))),
                 prefixIcon: SelectorButton(
                   country: state.country,
