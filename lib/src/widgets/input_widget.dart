@@ -423,7 +423,7 @@ class _InputWidgetView
             keyboardType: widget.keyboardType,
             textInputAction: widget.keyboardAction,
             style: widget.textStyle,
-            decoration: InputDecoration(
+            decoration:widget.inputDecoration?? InputDecoration(
                 filled:widget.filled,
                 fillColor:widget.fillColor,
                 contentPadding:
