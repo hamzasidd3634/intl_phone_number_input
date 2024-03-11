@@ -428,10 +428,8 @@ class _InputWidgetView
                 fillColor:widget.fillColor,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                label: Text(
-                  widget.hintText!,
-                  style: widget.labelStyle!,
-                ),
+                hintStyle:widget.labelStyle!,
+                hintText:  widget.hintText!,
                 border: widget.inputDecoration?.border ??
                     UnderlineInputBorder(
                         borderSide: BorderSide(color: Color(0xff707070))),
