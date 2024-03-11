@@ -56,6 +56,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final String? hintText;
   final TextStyle? labelStyle;
   String? errorMessage;
+  bool? filled;
+  Color? fillColor;
 
   final double selectorButtonOnErrorPadding;
 
@@ -98,6 +100,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.onFieldSubmitted,
       this.backgroundColor,
       this.isFromSignUp = false,
+      this.filled = false,
+      this.fillColor = Colors.white,
       this.validator,
       this.onSaved,
       this.textFieldController,
@@ -420,6 +424,8 @@ class _InputWidgetView
             textInputAction: widget.keyboardAction,
             style: widget.textStyle,
             decoration: InputDecoration(
+                filled:widget.filled,
+                fillColor:widget.fillColor,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                 label: Text(
