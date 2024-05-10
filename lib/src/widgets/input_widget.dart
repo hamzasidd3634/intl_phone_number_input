@@ -84,6 +84,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final TextAlign textAlign;
   final TextAlignVertical textAlignVertical;
   final EdgeInsets scrollPadding;
+  final EdgeInsets? contentPadding;
   final bool isFromSignUp;
 
   final FocusNode? focusNode;
@@ -99,6 +100,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.onSubmit,
       this.onFieldSubmitted,
       this.backgroundColor,
+      this.contentPadding,
       this.isFromSignUp = false,
       this.filled = false,
       this.fillColor = Colors.white,
@@ -301,7 +303,7 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
               widget.hintText!,
               style: widget.labelStyle,
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+            contentPadding: widget.contentPadding??EdgeInsets.symmetric(horizontal: 5, vertical: 10),
             hintStyle: widget.labelStyle);
 
     if (widget.selectorConfig.setSelectorButtonAsPrefixIcon) {
@@ -341,7 +343,7 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
       this.checkValidation = true;
       widget.errorMessage = "Invalid phone number";
     }
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (isValid && widget.errorMessage != null) {
         setState(() {
           this.selectorButtonBottomPadding =
@@ -426,7 +428,7 @@ class _InputWidgetView
             decoration: InputDecoration(
                 filled:widget.filled,
                 fillColor:widget.fillColor,
-                contentPadding:
+                contentPadding:widget.contentPadding??
                     EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                 hintStyle:widget.labelStyle!,
                 hintText:  widget.hintText!,
